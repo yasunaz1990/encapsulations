@@ -2,15 +2,34 @@ package case2;
 
 public class Student {
     // --- Fields ----//
-    public String fullName;
-    public int    studentID;
-    public double gpa;
+    private String fullName;
+    private int    studentID;
+    private double gpa;
 
     // --- Constructor ----//
-    public Student(String name) {
+    public Student(String name, double d) {
         fullName = name;
         studentID = generateStudentId();
-        gpa = 0.00;
+        gpa = d;
+    }
+
+    //--Setters & Getters--//
+    public void setFullName(String newFullName) {
+        if(newFullName.contains("Joker")) {
+            throw new IllegalArgumentException("Programming error: the name cannot contain Joker");
+        }
+        fullName = newFullName;
+    }
+
+    public int getStudentID() {
+        return studentID%100;
+    }
+
+    public void setGpa(double newGpa) {
+        if(newGpa < 0 || newGpa > 4.0) {
+            throw new IllegalArgumentException("Programming error: new gpa value is out of range...");
+        }
+        gpa = newGpa;
     }
 
     // --- Methods ----//
@@ -35,14 +54,8 @@ public class Student {
         System.out.println("Student GPA : " + gpa);
     }
 
-    public int generateStudentId() {
+    // Helper method
+    private int generateStudentId() {
         return (int)(Math.random() * 100000);
-    }
-
-    public void setGpa(double newGpa) {
-        if(newGpa < 0 && newGpa > 4.0) {
-            throw new IllegalArgumentException("Programming error: new gpa value is out of range..");
-        }
-        gpa = newGpa;
     }
 }
